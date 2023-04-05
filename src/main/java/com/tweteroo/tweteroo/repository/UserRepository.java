@@ -1,7 +1,26 @@
 package com.tweteroo.tweteroo.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import com.tweteroo.tweteroo.model.User;
 
-public interface UserRepository extends JpaRepository<User, Long> {}
+public class UserRepository {
+  private List<User> users = new ArrayList<>();
+
+  public void save(User user) {
+    users.add(user);
+  }
+
+  public Optional<User> findByUsername(String username) {
+    User user = new User();
+    for(int i=0; i<users.size(); i++) {
+      if(users.get(i).getUsername().equals(username)) {
+        user = users.get(i);
+      }
+    }
+    Optional<User> result = Optional.ofNullable(user);
+    return result;
+  }
+}

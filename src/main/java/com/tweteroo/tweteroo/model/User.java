@@ -1,29 +1,35 @@
 package com.tweteroo.tweteroo.model;
 
-import com.tweteroo.tweteroo.dto.UserDTO;
+import org.springframework.beans.factory.annotation.Autowired;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.tweteroo.tweteroo.dto.TweetDTO;
+import com.tweteroo.tweteroo.dto.UserDTO;
+import com.tweteroo.tweteroo.service.AuthService;
 
 public class User {
-  public User() {}
+  @Autowired
+  AuthService authService;
+
+  private String username;
+  private String avatar;
  
+  public User() {}
+
   public User(UserDTO user) {
     this.username = user.username();
     this.avatar = user.avatar();
   }
 
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
+  public void setTweetUser(TweetDTO tweet) {
+    this.username = tweet.username();
+    this.avatar = authService.getUserAvatar(username);
+  }
 
-  @Column(nullable = false)
-  private String username;
+  public String getUsername() {
+    return this.username;
+  }
 
-  @Column(nullable = false)
-  private String avatar;
+  public String getAvatar() {
+    return this.avatar;
+  }
 }
-
-
