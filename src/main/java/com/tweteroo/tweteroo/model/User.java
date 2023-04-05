@@ -1,15 +1,8 @@
 package com.tweteroo.tweteroo.model;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import com.tweteroo.tweteroo.dto.TweetDTO;
 import com.tweteroo.tweteroo.dto.UserDTO;
-import com.tweteroo.tweteroo.service.AuthService;
 
 public class User {
-  @Autowired
-  AuthService authService;
-
   private String username;
   private String avatar;
  
@@ -20,9 +13,9 @@ public class User {
     this.avatar = user.avatar();
   }
 
-  public void setTweetUser(TweetDTO tweet) {
-    this.username = tweet.username();
-    this.avatar = authService.getUserAvatar(username);
+  public void setTweetUser(String username, String avatar) {
+    this.username = username;
+    this.avatar = avatar;
   }
 
   public String getUsername() {
