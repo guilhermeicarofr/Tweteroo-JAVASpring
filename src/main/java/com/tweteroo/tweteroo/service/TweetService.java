@@ -16,10 +16,15 @@ public class TweetService {
 
   public void create(TweetDTO tweet) {
     String avatar = authService.getUserAvatar(tweet.username());
+    if(avatar.length() == 0) throw new Error("user invalid");
     TweterooApplication.tweetRepository.save(new Tweet(tweet.text(), tweet.username(), avatar));
   }
 
-  public List<Tweet> getTweetsPage(int page) {
-    return TweterooApplication.tweetRepository.getTweets(page);
+  public List<Tweet> listTweetsPage(int page) {
+    return TweterooApplication.tweetRepository.findAllLimited(page);
+  }
+
+  public List<Tweet> listUserTweets(String username) {
+    return TweterooApplication.tweetRepository.findAllByUser(username);
   }
 }

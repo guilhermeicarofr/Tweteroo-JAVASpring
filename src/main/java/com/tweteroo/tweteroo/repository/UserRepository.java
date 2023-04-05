@@ -20,7 +20,6 @@ public class UserRepository {
         user = users.get(i);
       }
     }
-    Optional<User> result = Optional.ofNullable(user);
-    return result;
+    return Optional.ofNullable(user);
   }
 }

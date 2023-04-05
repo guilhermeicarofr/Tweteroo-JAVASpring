@@ -12,7 +12,7 @@ public class TweetRepository {
     tweets.add(tweet);
   }
 
-  public List<Tweet> getTweets(int page) {
+  public List<Tweet> findAllLimited(int page) {
     int endIndex = tweets.size() - (page * 5);
     int startIndex = endIndex + 4;
 
@@ -26,5 +26,17 @@ public class TweetRepository {
     }
 
     return pageList;
+  }
+
+  public List<Tweet> findAllByUser(String username) {
+    List<Tweet> userTweets = new ArrayList<>();
+
+    for(int i=tweets.size()-1; i>=0; i--) {
+      if(tweets.get(i).getUsername().equals(username)) {
+        userTweets.add(tweets.get(i));
+      }
+    }
+
+    return userTweets;
   }
 }

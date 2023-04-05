@@ -19,7 +19,7 @@ public class AuthController {
 
   @PostMapping
   public String signUp(@RequestBody @Valid UserDTO body) {
-    service.signUp(body);
+    service.createUser(body);
     return("OK");
   }
 }
